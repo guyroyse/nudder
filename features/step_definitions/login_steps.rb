@@ -7,7 +7,7 @@ Then /^I see the login prompt$/ do
 end
 
 Given /^I have connected to Nudder$/ do
-	@client.connect
+	Given "I connect to Nudder" 
 end
 
 When /^I enter a valid user name$/ do
@@ -27,18 +27,14 @@ Then /^I see the welcome message$/ do
 end
 
 When /^I enter an invalid user name$/ do
-  pending # express the regexp above with the code you wish you had
+	@client.enter 'yug'
 end
 
 When /^I enter an invalid password$/ do
-  pending # express the regexp above with the code you wish you had
+  @client.enter 'drowssap'
 end
 
 Then /^I see the login failure message$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-When /^I enter in invalid password$/ do
-  pending # express the regexp above with the code you wish you had
+  @client.text.should include('Invalid login')
 end
 

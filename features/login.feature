@@ -18,6 +18,6 @@ Scenario: User is given an error when login fails
 	Then I see the login failure message
 		And I see the login prompt
 	When I enter a valid user name
-		And I enter in invalid password
+		And I enter an invalid password
 	Then I see the login failure message
 		And I see the login prompt
