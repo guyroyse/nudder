@@ -5,9 +5,18 @@ require 'cucumber/rake/task'
 task :default => [:specs, :features]
 
 task :specs do
+	sh "node spec.js"
 end
 
-task :features => [:start_node, :cucumber, :stop_node]
+task :features do
+	begin
+		[:start_node, :cucumber].each do |t|
+			Rake::Task[t].execute
+		end
+	ensure
+		Rake::Task[:stop_node].execute
+	end
+end
 
 task :start_node do
   sh "node app.js &"
@@ -20,4 +29,3 @@ end
 task :stop_node do
   sh "pkill -x node"  
 end
-
