@@ -3,27 +3,27 @@ When /^I connect to Nudder$/ do
 end
 
 Then /^I see the login prompt$/ do
-	@client.contains('User:').should be_true
+	@client.text.should include('User:')
 end
 
 Given /^I have connected to Nudder$/ do
-  pending # express the regexp above with the code you wish you had
+	@client.connect
 end
 
 When /^I enter a valid user name$/ do
-  pending # express the regexp above with the code you wish you had
+	@client.enter 'guy'
 end
 
 Then /^I see the password prompt$/ do
-  pending # express the regexp above with the code you wish you had
+	@client.text.should include('Password:')
 end
 
 When /^I enter a valid password$/ do
-  pending # express the regexp above with the code you wish you had
+  @client.enter 'password'
 end
 
 Then /^I see the welcome message$/ do
-  pending # express the regexp above with the code you wish you had
+  @client.text.should include('Welcome to the server')
 end
 
 When /^I enter an invalid user name$/ do
