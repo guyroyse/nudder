@@ -6,7 +6,7 @@ for ( var key in jasmine) {
   global[key] = jasmine[key];
 }
 
-var isVerbose = false;
+var isVerbose = true;
 var showColors = true;
 process.argv.forEach(function(arg) {
   switch (arg) {

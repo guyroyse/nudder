@@ -11,23 +11,29 @@ describe('Authentication', function() {
 	beforeEach(function() {
 		authn = require('../lib/authn');
 		authn.user_adapter = {
-			get : function() {
-				return { password_hash : TEST_HASH };
+			get : function(username, callback) {
+				callback({ password_hash : TEST_HASH });
 			}
 		};
 	});
 
 	it("returns true when handed a user and password", function() {
-		expect(authn.authenticate(TEST_USER, TEST_PASSWORD)).toBeTruthy();
+		authn.authenticate(TEST_USER, TEST_PASSWORD, function(authenticated) {
+			expect(authenticated).toBeTruthy();
+		});
 	});
 
 	it("returns false when handed a user and bad password", function() {
-		expect(authn.authenticate(TEST_USER, BAD_PASSWORD)).toBeFalsy();
+		authn.authenticate(TEST_USER, BAD_PASSWORD, function(authenticated) {
+			expect(authenticated).toBeFalsy();
+		});
 	});
 
 	it("returns false when handed a bad user", function() {
-		authn.user_adapter.get = function() { return null; };
-		expect(authn.authenticate(BAD_USER, TEST_PASSWORD)).toBeFalsy();
+		authn.user_adapter.get = function(username, callback) { callback(null); };
+		authn.authenticate(BAD_USER, TEST_PASSWORD, function(authenticated) {
+			expect(authenticated).toBeFalsy();
+		});
 	});
 
 });
