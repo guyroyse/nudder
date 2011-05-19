@@ -7,7 +7,7 @@ class Client
 		@text = @socket.recv(1024)
 	end
 	def enter(string)
-		@socket.sendmsg string
+		@socket.sendmsg "#{string}\n"
 		@text = @socket.recv(1024)
 	end
 	def disconnect
