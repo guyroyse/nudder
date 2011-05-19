@@ -1,9 +1,9 @@
 When /^I connect to Nudder$/ do
-	@client.connect
+	@screen = LoginScreen.new @client
 end
 
 Then /^I see the login prompt$/ do
-	@client.text.should include('User:')
+	@screen.user_prompt.should include('User:')
 end
 
 Given /^I have connected to Nudder$/ do
@@ -11,30 +11,30 @@ Given /^I have connected to Nudder$/ do
 end
 
 When /^I enter a valid user name$/ do
-	@client.enter 'guy'
+	@screen.user = 'guy'
 end
 
 Then /^I see the password prompt$/ do
-	@client.text.should include('Password:')
+	@screen.password_prompt.should include('Password:')
 end
 
 When /^I enter a valid password$/ do
-  @client.enter 'password'
+	@screen.password = 'password'
 end
 
 Then /^I see the welcome message$/ do
-  @client.text.should include('Welcome to the server')
+	@screen.login_response.should include('Welcome to the server')
 end
 
 When /^I enter an invalid user name$/ do
-	@client.enter 'yug'
+	@screen.user = 'yug'
 end
 
 When /^I enter an invalid password$/ do
-  @client.enter 'drowssap'
+  @screen.password = 'drowssap'
 end
 
 Then /^I see the login failure message$/ do
-  @client.text.should include('Invalid login')
+  @screen.login_response.should include('Invalid login')
 end
 
